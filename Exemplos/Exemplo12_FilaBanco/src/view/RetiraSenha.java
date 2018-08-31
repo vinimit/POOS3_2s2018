@@ -9,7 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.Cliente;
-import model.filaestatica.Fila;
+import model.fila.IFilaComPrioridade;
+
 
 public class RetiraSenha extends JFrame{
 	
@@ -18,9 +19,9 @@ public class RetiraSenha extends JFrame{
 	private JButton normal;
 	private JButton prioridade;
 	
-	private Fila fila;
+	private IFilaComPrioridade fila;
 	
-	public RetiraSenha(Fila fila) {
+	public RetiraSenha(IFilaComPrioridade fila) {
 		criarComponentes();
 		this.fila = fila;
 		ajustes();
@@ -68,7 +69,7 @@ public class RetiraSenha extends JFrame{
 	private void gerarSenha(boolean prioridade) {
 		Cliente c = new Cliente(fila.proximaSenha(), prioridade);
         
-		if(fila.enqueue(c))
+		if(fila.entraFila(c))
 			senha.setText(String.valueOf(c.getSenha()));
 		else 
 			senha.setText("Senha não gerada");

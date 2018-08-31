@@ -1,13 +1,15 @@
 package view;
 
+import model.fila.IFilaComPrioridade;
 import model.filaestatica.Fila;
+
 
 public class Main {
 	
 	
 	public static void main(String args[]) {
 	
-		Fila fila = new Fila(10);
+		IFilaComPrioridade fila = new Fila(10);
 		
 		Caixa cx1 = new Caixa(fila, false);
 		Caixa cx2 = new Caixa(fila, false);

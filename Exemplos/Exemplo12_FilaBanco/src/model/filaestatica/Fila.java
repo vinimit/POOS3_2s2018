@@ -1,8 +1,9 @@
 package model.filaestatica;
 
 import model.Cliente;
+import model.fila.IFilaComPrioridade;
 
-public class Fila {
+public class Fila implements IFilaComPrioridade{
 	
 	private final int DEFAULT_MAXIMO = 100;
 	private Cliente[] fila;
@@ -30,37 +31,53 @@ public class Fila {
 		fim = -1;
 	}
 	
-	public boolean isEmpty() {
-		return fim < inicio;
-	}
 	
-	public boolean isFull() {
-		return fim == tamanhoMaximo-1;
+	public int proximaSenha() {
+		int i;
+		if(estaVazia()) {
+			i = 1;
+		}else {
+			i = fila[fim].getSenha() + 1;
+		}
+		return i;
 	}
-	
-	public boolean enqueue(Cliente c) {
+
+	@Override
+	public boolean entraFila(Cliente c) {
 		boolean deuCerto = false;
-		if(c != null && !isFull()) {
+		if(c != null && !estaCheia()) {
 			fim += 1;
 			fila[fim] = c; 
 			deuCerto = true;
 		}
 		return deuCerto;
 	}
-	
-	public Cliente dequeue() {
+
+	@Override
+	public Cliente saiFila() {
 		Cliente c = null;
-		if(!isEmpty()) {
+		if(!estaVazia()) {
 			c = fila[inicio];
 			inicio += 1;
 		}
 		return c;
 	}
-	
-	public Cliente dequeuePrioritario() {
+
+	@Override
+	public boolean estaCheia() {
+		return fim == tamanhoMaximo-1;
+	}
+
+	@Override
+	public boolean estaVazia() {
+		return fim < inicio;
+	}
+
+	@Override
+	public Cliente saiFilaComPrioridade() {
 		Cliente c = null;
 		int i;
-		if(!isEmpty()) {
+		if(!estaVazia()) {
 			i = inicio;
 			do {
 				if(fila[i].isPrioritario()) {
@@ -75,19 +92,9 @@ public class Fila {
 				}
 			}while(c == null && i < tamanhoMaximo);
 			if(c == null) {
-				c = dequeue();
+				c = saiFila();
 			}
 		}
 		return c;
-	}
-	
-	public int proximaSenha() {
-		int i;
-		if(isEmpty()) {
-			i = 1;
-		}else {
-			i = fila[fim].getSenha() + 1;
-		}
-		return i;
 	}
 }

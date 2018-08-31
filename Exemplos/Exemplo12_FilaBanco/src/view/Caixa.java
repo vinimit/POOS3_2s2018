@@ -9,7 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.Cliente;
-import model.filaestatica.Fila;
+import model.fila.IFilaComPrioridade;
+
 
 public class Caixa extends JFrame{
 	
@@ -17,11 +18,11 @@ public class Caixa extends JFrame{
 	private JButton botao;
 	private JLabel senha;
 	
-	private Fila fila;
+	private IFilaComPrioridade fila;
 	private boolean prioritario;
 	
 	
-	public Caixa(Fila fila, boolean prioritario) {
+	public Caixa(IFilaComPrioridade fila, boolean prioritario) {
 		criarComponentes();
 		this.fila = fila;
 		this.prioritario = prioritario;
@@ -62,9 +63,9 @@ public class Caixa extends JFrame{
 	private void chamarProximo() {
 		Cliente c;
 		if(prioritario) {
-			c = fila.dequeuePrioritario();
+			c = fila.saiFilaComPrioridade();
 		}else {
-			c = fila.dequeue();
+			c = fila.saiFila();
 		}
 		if(c != null)
 			senha.setText("Próximo: " + c.getSenha());
