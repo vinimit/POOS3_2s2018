@@ -10,6 +10,7 @@ public class Main {
 		Agenda agenda = new Agenda();
 		Contato contato;
 		
+		
 		agenda.insereContato(new Contato("Ednilson", "ednilsonrossi@ifsp.edu.br", new Telefone(016, 3303, 2330)));
 		agenda.insereContato(new Contato("Ednilson", "ednilsonrossi@ifsp.edu.br", new Telefone(016, 3303, 2330)));
 		agenda.insereContato(new Contato("Ednilson", "ednilsonrossi@ifsp.edu.br", new Telefone(016, 3303, 2330)));
